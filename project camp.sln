@@ -1,31 +1,206 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "project camp", "project camp\project camp.vcxproj", "{1591DFD3-8A73-455B-915A-DBD328FBD832}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1591DFD3-8A73-455B-915A-DBD328FBD832}.Debug|x64.ActiveCfg = Debug|x64
-		{1591DFD3-8A73-455B-915A-DBD328FBD832}.Debug|x64.Build.0 = Debug|x64
-		{1591DFD3-8A73-455B-915A-DBD328FBD832}.Debug|x86.ActiveCfg = Debug|Win32
-		{1591DFD3-8A73-455B-915A-DBD328FBD832}.Debug|x86.Build.0 = Debug|Win32
-		{1591DFD3-8A73-455B-915A-DBD328FBD832}.Release|x64.ActiveCfg = Release|x64
-		{1591DFD3-8A73-455B-915A-DBD328FBD832}.Release|x64.Build.0 = Release|x64
-		{1591DFD3-8A73-455B-915A-DBD328FBD832}.Release|x86.ActiveCfg = Release|Win32
-		{1591DFD3-8A73-455B-915A-DBD328FBD832}.Release|x86.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {642A7224-D741-49F6-8590-83CB67D50812}
-	EndGlobalSection
-EndGlobal
+﻿#include <iostream>
+#include <string>
+#include<algorithm>
+#include<iomanip>
+
+using namespace std;
+
+
+// Some Functions to perform (Banking System Operations).
+void showBalance(double balance);
+double deposit();
+double withdraw(double balance);
+
+
+
+// Main Function.
+int main() {
+
+
+    //logging in to the account
+    string username[] = { "Moheb23", "Ahmed165", "Youssef564" };
+    string pass[] = { "passrt233", "erefdkl45", "654fggdd" };
+    string accountName, password;
+
+    cout << "Login to your account \n\n";
+
+    cout << "account Name: ";
+    getline(cin, accountName);
+
+
+    cout << endl;
+
+
+    cout << "Password: ";
+    getline(cin, password);
+
+
+	bool x = 0;//User Authentication variable
+    for (int i = 0; i < 3; i++)
+    {
+        if (accountName == username[i])
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (password == pass[i])
+                {
+                    x = 1;
+                    break;
+
+                }
+            }
+            if (x)
+                break;
+
+        }
+    }
+    if (!x) {
+        cout << "inavlid Password or username";
+        cout << endl;
+        return 0;
+    }
+
+    //*********************// 
+
+
+
+    string logout;
+
+
+
+    //*********************// 
+
+     // Initialize variables.
+    double balance = 0;
+
+    int choice = 0;
+
+
+
+    // Do while loop. 
+
+    do { //***********************************//
+        cout << "********************" << endl;
+        cout << "Enter Your Choice:" << endl;
+        cout << "********************" << endl;
+        cout << "1. Show Balance " << endl;
+        cout << "2. Deposit Money" << endl;
+        cout << "3. Withdraw Money" << endl;
+        cout << "4. Exit" << endl;
+        cin >> choice;
+        //***********************************//
+
+
+
+        // Here are some functions to (correct errors) that may occur.
+
+        cin.clear();
+        fflush(stdin);
+
+        // Switch.
+
+        switch (choice) {
+        case 1:
+            showBalance(balance);
+            break;
+        case 2:
+            balance += deposit();
+            showBalance(balance);
+            break;
+        case 3:
+            balance -= withdraw(balance);
+            showBalance(balance);
+            break;
+        case 4:
+            cout << "Thanks For Visiting Sir!" << endl;
+            //break;
+        case 5:
+            cout << "If you want to logout, click on y:\n";
+
+            getline(cin, logout);
+            if (logout == "")
+            {
+                int counter = 0;
+                while (counter <= 60)
+                {
+
+                    if (counter == 60) {
+                        cout << "logout" << endl;
+                        break;
+                    }
+                    counter++;
+                }
+            }
+            if (logout == "y") {
+                cout << "Succsses Submation \n" << "Thank You" << endl;
+                break;
+        default:
+            cout << "Invalid Choice" << endl;
+
+
+            }
+        }
+
+
+    } while (choice != 4);
+
+    return 0;
+
+}
+
+// Finally, the above functions were used.
+
+void showBalance(double balance) {
+    cout << "Your Balance is: $" << setprecision(2) << fixed << balance << endl;
+
+}
+double deposit() {
+    double amount = 0;
+    cout << "Enter Amount to be deposited:" << endl;
+    cin >> amount;
+
+    if (amount > 0) {
+        return amount;
+    }
+    else {
+        cout << "That's not a valid amount" << endl;
+        return 0;
+    }
+
+}
+double withdraw(double balance) {
+
+    double amount = 0;
+    cout << "Enter amount to be withdrawn:" << endl;
+    cin >> amount;
+
+    if (amount > balance) {
+        cout << "Insufficient Funds" << endl;
+        return 0;
+    }
+
+    else if (amount < 0) {
+        cout << "That's not a valid amount" << endl;
+        return 0;
+    }
+
+    else {
+        return amount;
+    }
+
+
+
+
+
+
+
+}
+
+// Prepared By :
+// 1-Youssef Nasser Abdelhamid.
+// 2-Ahmed Karam Eissa.
+// 3-Youssef Harby Ahmed.
+// 4-Moheb Zakaria Nassif.
+// 5-Youssef Ibrahim Abdelnasser.
+// 6-Ahmed khaled mohammed.
+         //Group 32
